@@ -1,15 +1,13 @@
 // data.ts
 
-import {PokemonApiResponse, PokemonDetails} from "@/lib/definitions";
+import { PokemonApiResponse, PokemonDetails } from "@/lib/definitions";
 
 const POKEMON_API = "https://pokeapi.co/api/v2/";
 
 export async function getPokemonList(): Promise<PokemonDetails[]> {
-    // Fetch the list of Pokémon names and URLs
     const response = await fetch(POKEMON_API + "pokemon?limit=100&offset=0");
     const data: PokemonApiResponse = await response.json();
 
-    // Fetch detailed data for each Pokémon
     return await Promise.all(
         data.results.map(async (pokemon) => await getPokemon(pokemon.name))
     );
@@ -19,5 +17,15 @@ export async function getPokemonList(): Promise<PokemonDetails[]> {
 export async function getPokemon(name: string): Promise<PokemonDetails> {
     const response = await fetch(POKEMON_API + "pokemon/" + name);
     const data = await response.json();
-    return data;
+
+    return {
+        id: data.id,
+        name: data.name,
+        height: data.height,
+        weight: data.weight,
+        types: data.types,
+        abilities: data.abilities,
+        sprites: data.sprites,
+        stats: data.stats
+    };
 }

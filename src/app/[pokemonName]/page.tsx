@@ -4,7 +4,8 @@ import {capitalizeFirstLetter} from "@/lib/utils";
 import {StatItem} from "@/app/components/stat-item";
 import {Stat} from "@/lib/definitions";
 
-export default async function PokemonPage({ params } : { params: { pokemonName: string} }) {
+export default async function PokemonPage(props: { params: Promise<{ pokemonName: string}> }) {
+    const params = await props.params;
     const { pokemonName } = params;
     const pokemonObject = await getPokemon(pokemonName)
     console.log(pokemonObject);
@@ -28,7 +29,7 @@ export default async function PokemonPage({ params } : { params: { pokemonName: 
             </div>
 
             <h3 className="text-lg font-semibold text-center mb-4">
-                Weight: {pokemonObject.weight} kg
+                #{pokemonObject.id}
             </h3>
 
             <div className="space-y-4">

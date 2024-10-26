@@ -2,7 +2,7 @@
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {Pokemon, PokemonDetails} from "@/lib/definitions";
+import {PokemonDetails} from "@/lib/definitions";
 import { useState } from "react";
 import {PokemonCard} from "@/app/components/pokemon-card";
 
@@ -15,7 +15,7 @@ export function PokemonGrid({ pokemonList }: PokemonGridProps) {
 
     const searchFilter = (pokemonList: PokemonDetails[]) => {
         return pokemonList.filter((pokemon) =>
-            pokemon.name.toLowerCase().includes(searchText.toLowerCase())
+            pokemon.name.toLowerCase().startsWith(searchText.toLowerCase())
         );
     };
 
