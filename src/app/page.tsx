@@ -1,8 +1,9 @@
 import {PokemonGrid} from "@/app/components/pokemon-grid";
-import { getPokemonList } from "@/lib/pokemonAPI";
+import { getPokemonList } from "@/lib/data";
+import {PokemonDetails} from "@/lib/definitions";
 
 export default async function Home() {
-    const pokemonList = await getPokemonList();
+    const pokemonList: PokemonDetails[] = await getPokemonList();
   return (
 
       <PokemonGrid pokemonList={pokemonList}/>
