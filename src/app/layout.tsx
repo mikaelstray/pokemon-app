@@ -1,12 +1,13 @@
 import './globals.css';
 import { Inter } from 'next/font/google';
 import Link from 'next/link';
+import React from "react";
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
     title: 'Pokemon Finder',
-    description: 'Search and discover Pokémon!',
+    description: 'Search and discover Pokemons!',
 };
 
 export default function RootLayout({

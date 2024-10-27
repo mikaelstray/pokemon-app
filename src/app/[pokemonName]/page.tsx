@@ -8,7 +8,6 @@ export default async function PokemonPage(props: { params: Promise<{ pokemonName
     const params = await props.params;
     const { pokemonName } = params;
     const pokemonObject = await getPokemon(pokemonName)
-    console.log(pokemonObject);
 
     return (
         <div className="p-6 max-w-3xl mx-auto">
