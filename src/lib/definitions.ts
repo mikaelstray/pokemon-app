@@ -50,3 +50,9 @@ export type PokemonDetails = {
         };
     };
 };
+
+export enum StatType {
+    Weight = "weight",
+    Height = "height",
+    Types = "types",
+}

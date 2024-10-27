@@ -3,7 +3,10 @@ import { PokemonApiResponse, PokemonDetails } from "@/lib/definitions";
 const POKEMON_API = "https://pokeapi.co/api/v2/";
 
 export async function getPokemonList(): Promise<PokemonDetails[]> {
-    const response = await fetch(POKEMON_API + "pokemon?limit=100&offset=0");
+    const response = await fetch(`${POKEMON_API}pokemon?limit=100&offset=0`, {
+        cache: "force-cache"
+    });
+
     const data: PokemonApiResponse = await response.json();
 
     return await Promise.all(

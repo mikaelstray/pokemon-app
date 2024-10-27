@@ -1,20 +1,27 @@
-"use client"
+// components/PokemonCard.tsx
+"use client";
 
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { PokemonDetails, Type } from "@/lib/definitions";
-import { ExternalLinkIcon } from "@/app/components/icons";
+import {capitalizeFirstLetter} from "@/lib/utils";
+import {PokemonDetails, StatType, Type} from "@/lib/definitions";
+import {ExternalLinkIcon} from "@/app/components/icons";
 import React from "react";
 
 interface PokemonCardProps {
     pokemon: PokemonDetails;
     isSelected: boolean;
     setExpandedId: (id: number | null) => void;
+    visibleStats: StatType[]; // Array of visible stats
 }
 
-export function PokemonCard({ pokemon, isSelected, setExpandedId }: PokemonCardProps) {
+export function PokemonCard({
+                                pokemon,
+                                isSelected,
+                                setExpandedId,
+                                visibleStats,
+                            }: PokemonCardProps) {
     const { id, name, sprites, weight, height, types, stats } = pokemon;
 
     const handleClick = () => setExpandedId(isSelected ? null : id);
@@ -30,9 +37,7 @@ export function PokemonCard({ pokemon, isSelected, setExpandedId }: PokemonCardP
                 }
             )}
         >
-            {/* Top Section: Basic Info and Icon */}
             <div className="flex items-center justify-between w-full">
-                {/* Left Section: Image and Stats */}
                 <div className="flex items-center space-x-8 w-full">
                     <div className="relative w-12 h-12">
                         <Image
@@ -48,24 +53,30 @@ export function PokemonCard({ pokemon, isSelected, setExpandedId }: PokemonCardP
                         <span className="text-sm text-gray-500">#{id}</span>
                     </div>
                     <div className="flex w-3/5 space-x-8">
-                        <div className="flex-1 text-center">
-                            <h4 className="text-sm font-medium text-gray-700">Weight</h4>
-                            <p className="text-md font-semibold text-gray-900">{weight} kg</p>
-                        </div>
-                        <div className="flex-1 text-center">
-                            <h4 className="text-sm font-medium text-gray-700">Height</h4>
-                            <p className="text-md font-semibold text-gray-900">{height} m</p>
-                        </div>
-                        <div className="flex-1 text-center">
-                            <h4 className="text-sm font-medium text-gray-700">Types</h4>
-                            <p className="text-md font-semibold text-gray-900">
-                                {types.map((type: Type) => capitalizeFirstLetter(type.type.name)).join(", ")}
-                            </p>
-                        </div>
+                        {/* Conditionally render each stat based on whether it's in the visibleStats array */}
+                        {visibleStats.includes(StatType.Weight) && (
+                            <div className="flex-1 text-center">
+                                <h4 className="text-sm font-medium text-gray-700">Weight</h4>
+                                <p className="text-md font-semibold text-gray-900">{weight} kg</p>
+                            </div>
+                        )}
+                        {visibleStats.includes(StatType.Height) && (
+                            <div className="flex-1 text-center">
+                                <h4 className="text-sm font-medium text-gray-700">Height</h4>
+                                <p className="text-md font-semibold text-gray-900">{height} m</p>
+                            </div>
+                        )}
+                        {visibleStats.includes(StatType.Types) && (
+                            <div className="flex-1 text-center">
+                                <h4 className="text-sm font-medium text-gray-700">Types</h4>
+                                <p className="text-md font-semibold text-gray-900">
+                                    {types.map((type: Type) => capitalizeFirstLetter(type.type.name)).join(", ")}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
 
-                {/* Right Section: Icon Link */}
                 <div className="group" onClick={preventPropagation}>
                     <Link href={`/${name}`} className="hover:scale-110 transition-transform">
                         <ExternalLinkIcon />
@@ -73,7 +84,6 @@ export function PokemonCard({ pokemon, isSelected, setExpandedId }: PokemonCardP
                 </div>
             </div>
 
-            {/* Expanded Section for Additional Stats */}
             {isSelected && (
                 <div className="mt-4 space-y-2 w-full">
                     {stats.map((stat) => (
