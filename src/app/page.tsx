@@ -1,14 +1,15 @@
-import { PokemonGrid } from "@/app/components/pokemon-grid";
-import { getPokemonList } from "@/lib/data";
-import { PokemonDetails } from "@/lib/definitions";
+"use client"
 
-export default async function HomePage() {
-    const pokemonList: PokemonDetails[] = await getPokemonList();
+import { PokemonGrid } from "@/app/components/pokemon-grid";
+import {Provider} from "react-redux";
+import { store } from "@/redux/store";
+
+export default function HomePage() {
 
     return (
-        <div>
+        <Provider store={store}>
             <h1 className="text-4xl font-bold text-center pt-6">Pokémon List</h1>
-            <PokemonGrid pokemonList={pokemonList} />
-        </div>
+            <PokemonGrid/>
+        </Provider>
     );
 }
