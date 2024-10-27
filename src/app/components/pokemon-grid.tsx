@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { useEffect } from "react";
@@ -20,6 +20,29 @@ export function PokemonGrid() {
     }, [dispatch]);
 
     const filteredList = searchFilter(pokemonList, searchText);
+
+    // Get the current index of the expanded Pokémon, if any
+    const currentIndex = filteredList.findIndex(pokemon => pokemon.id === expandedId);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "ArrowDown") {
+            // Move to the next item, or stay at the last item if at the end
+            const nextIndex = (currentIndex + 1) % filteredList.length;
+            dispatch(setExpandedId(filteredList[nextIndex]?.id ?? null));
+        } else if (e.key === "ArrowUp") {
+            // Move to the previous item, or loop to the last item if at the start
+            const prevIndex = (currentIndex - 1 + filteredList.length) % filteredList.length;
+            dispatch(setExpandedId(filteredList[prevIndex]?.id ?? null));
+        }
+    };
+
+    // Attach the event listener for key presses
+    useEffect(() => {
+        window.addEventListener("keydown", handleKeyDown);
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+        };
+    }, [currentIndex, filteredList]);
 
     return (
         <>
