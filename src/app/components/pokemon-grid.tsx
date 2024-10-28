@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { setSearchText, setExpandedId } from "@/redux/slices/ui-slice";
 import { PokemonCard } from "@/app/components/pokemon-card";
 import { searchFilter, handleNavigation } from "@/lib/utils";
-import { StatFilter } from "@/app/components/stat-filter";
+import { StatFilter } from "@/app/components/stat/stat-filter";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 

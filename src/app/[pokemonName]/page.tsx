@@ -1,7 +1,7 @@
 import { getPokemon } from "@/lib/data";
 import { PokemonImage } from "@/app/components/pokemon-image";
 import { capitalizeFirstLetter } from "@/lib/utils";
-import { StatItem } from "@/app/components/stat-item";
+import { StatItem } from "@/app/components/stat/stat-item";
 import { Stat } from "@/lib/definitions";
 
 export default async function PokemonPage(props: { params: Promise<{ pokemonName: string }> }) {
