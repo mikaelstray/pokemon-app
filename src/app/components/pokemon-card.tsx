@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import Image from "next/image";
 import Link from "next/link";
-import {capitalizeFirstLetter} from "@/lib/utils";
-import {PokemonDetails, StatType, Type} from "@/lib/definitions";
-import {ExternalLinkIcon} from "@/app/components/icons";
+import { capitalizeFirstLetter } from "@/lib/utils";
+import { PokemonDetails, StatType } from "@/lib/definitions";
+import { ExternalLinkIcon } from "@/app/components/icons";
 import React from "react";
 
 interface PokemonCardProps {
@@ -51,28 +51,37 @@ export function PokemonCard({
                         <span>{capitalizeFirstLetter(name)}</span>
                         <span className="text-sm text-gray-500">#{id}</span>
                     </div>
-                    <div className="flex w-3/5 space-x-8">
-                        {/* Conditionally render each stat based on whether it's in the visibleStats array */}
-                        {visibleStats.includes(StatType.Weight) && (
-                            <div className="flex-1 text-center">
-                                <h4 className="text-sm font-medium text-gray-700">Weight</h4>
-                                <p className="text-md font-semibold text-gray-900">{weight} kg</p>
-                            </div>
-                        )}
-                        {visibleStats.includes(StatType.Height) && (
-                            <div className="flex-1 text-center">
-                                <h4 className="text-sm font-medium text-gray-700">Height</h4>
-                                <p className="text-md font-semibold text-gray-900">{height} m</p>
-                            </div>
-                        )}
-                        {visibleStats.includes(StatType.Types) && (
-                            <div className="flex-1 text-center">
-                                <h4 className="text-sm font-medium text-gray-700">Types</h4>
-                                <p className="text-md font-semibold text-gray-900">
-                                    {types.map((type: Type) => capitalizeFirstLetter(type.type.name)).join(", ")}
-                                </p>
-                            </div>
-                        )}
+                    <div className="flex w-3/5 gap-x-8">
+                        {/* Fixed-width container for each stat to ensure alignment */}
+                        <div
+                            className={clsx("flex flex-col items-center", {
+                                invisible: !visibleStats.includes(StatType.Weight),
+                            })}
+                            style={{ width: "80px" }}
+                        >
+                            <span className="text-xs font-medium text-gray-700">Weight</span>
+                            <span className="text-md font-semibold text-gray-900">{`${weight} kg`}</span>
+                        </div>
+                        <div
+                            className={clsx("flex flex-col items-center", {
+                                invisible: !visibleStats.includes(StatType.Height),
+                            })}
+                            style={{ width: "80px" }}
+                        >
+                            <span className="text-xs font-medium text-gray-700">Height</span>
+                            <span className="text-md font-semibold text-gray-900">{`${height} m`}</span>
+                        </div>
+                        <div
+                            className={clsx("flex flex-col items-center", {
+                                invisible: !visibleStats.includes(StatType.Types),
+                            })}
+                            style={{ width: "150px" }}
+                        >
+                            <span className="text-xs font-medium text-gray-700">Types</span>
+                            <span className="text-md font-semibold text-gray-900">
+                                {types.map((type) => capitalizeFirstLetter(type.type.name)).join(", ")}
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -84,11 +93,13 @@ export function PokemonCard({
             </div>
 
             {isSelected && (
-                <div className="mt-4 space-y-2 w-full">
+                <div className="mt-4 flex flex-col gap-y-2 w-full">
                     {stats.map((stat) => (
-                        <div key={stat.stat.name} className="flex justify-between text-sm text-gray-800">
-                            <span className="capitalize font-medium">{capitalizeFirstLetter(stat.stat.name)}:</span>
-                            <span>{stat.base_stat}</span>
+                        <div key={stat.stat.name} className="flex justify-between items-center w-full">
+                            <span className="text-xs font-medium text-gray-700 capitalize">
+                                {capitalizeFirstLetter(stat.stat.name)}
+                            </span>
+                            <span className="text-md font-semibold text-gray-900">{stat.base_stat}</span>
                         </div>
                     ))}
                 </div>
