@@ -13,7 +13,7 @@ interface PokemonCardProps {
     pokemon: PokemonDetails;
     isSelected: boolean;
     setExpandedId: (id: number | null) => void;
-    visibleStats: StatType[]; // Array of visible stats
+    visibleStats: StatType[];
 }
 
 export function PokemonCard({
@@ -37,6 +37,7 @@ export function PokemonCard({
                 }
             )}
         >
+            {/* Header: Pokemon Image and Name */}
             <div className="flex items-center justify-between w-full">
                 <div className="flex items-center space-x-4 w-full max-w-xs">
                     <div className="relative w-12 h-12">
@@ -54,6 +55,7 @@ export function PokemonCard({
                     </div>
                 </div>
 
+                {/* Stat Display */}
                 <div className="flex flex-grow gap-x-8 items-center justify-between">
                     <StatDisplay
                         label="Weight"
@@ -73,15 +75,18 @@ export function PokemonCard({
                     />
                 </div>
 
+                {/* External Link Icon */}
                 <Link
                     href={`/${name}`}
                     className="flex items-center justify-center p-2 hover:scale-110 transition-transform"
                     onClick={preventPropagation}
+                    aria-label={`View more details about ${name}`}
                 >
                     <ExternalLinkIcon />
                 </Link>
             </div>
 
+            {/* Expanded Stats Section */}
             {isSelected && (
                 <div className="mt-4 flex flex-col gap-y-2 w-full">
                     {stats.map((stat) => (

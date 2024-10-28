@@ -1,8 +1,10 @@
+// Represents a basic Pokémon with a name and API URL
 export type Pokemon = {
     name: string;
     url: string;
 };
 
+// Response structure for Pokémon list API calls
 export type PokemonApiResponse = {
     count: number;
     next: string | null;
@@ -10,6 +12,7 @@ export type PokemonApiResponse = {
     results: Pokemon[];
 };
 
+// Represents a Pokémon stat, including its base value and name
 export type Stat = {
     base_stat: number;
     stat: {
@@ -17,6 +20,7 @@ export type Stat = {
     };
 };
 
+// Represents an ability with details like name, visibility, and slot
 export type Ability = {
     ability: {
         name: string;
@@ -26,6 +30,7 @@ export type Ability = {
     slot: number;
 };
 
+// Represents a type with its name, slot, and API URL
 export type Type = {
     slot: number;
     type: {
@@ -34,6 +39,7 @@ export type Type = {
     };
 };
 
+// Represents detailed information about a Pokémon, including its stats, types, abilities, and sprites
 export type PokemonDetails = {
     id: number;
     name: string;
@@ -51,6 +57,7 @@ export type PokemonDetails = {
     };
 };
 
+// Enumeration for different stat types, used to control visibility
 export enum StatType {
     Weight = "weight",
     Height = "height",

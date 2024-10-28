@@ -15,8 +15,10 @@ export function PokemonGrid() {
     const expandedId = useAppSelector((state) => state.ui.expandedId);
     const visibleStats = useAppSelector((state) => state.ui.visibleStats);
 
+    // Filter the list based on the search term
     const filteredList = searchFilter(pokemonList, searchText);
 
+    // Handle keyboard navigation for Pokemon cards
     const handleKeyDown = (e: React.KeyboardEvent) => {
         const newExpandedId = handleNavigation(e, filteredList, expandedId);
         dispatch(setExpandedId(newExpandedId));
@@ -25,20 +27,26 @@ export function PokemonGrid() {
     return (
         <Card className="p-6 bg-gray-50 border border-gray-200 rounded-lg shadow-md">
             <CardContent className="space-y-4">
+                {/* Search Input */}
                 <Input
                     type="text"
                     placeholder="Search Pokémon..."
                     value={searchText}
                     onChange={(e) => dispatch(setSearchText(e.target.value))}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+                    aria-label="Search Pokémon"
                 />
+
+                {/* Filter Options */}
                 <StatFilter />
 
+                {/* Display Filtered Pokémon List */}
                 {filteredList.length > 0 ? (
                     <div
                         tabIndex={0}
                         onKeyDown={handleKeyDown}
                         className="grid grid-cols-1 gap-6 outline-none"
+                        aria-label="Pokemon Grid"
                     >
                         {filteredList.map((pokemon) => (
                             <PokemonCard
