@@ -14,7 +14,6 @@ export async function getPokemonList(): Promise<PokemonDetails[]> {
     );
 }
 
-// Fetch individual Pokémon details
 export async function getPokemon(name: string): Promise<PokemonDetails> {
     const response = await fetch(POKEMON_API + "pokemon/" + name);
     const data = await response.json();

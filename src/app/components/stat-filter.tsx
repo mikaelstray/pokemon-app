@@ -16,8 +16,8 @@ export function StatFilter() {
                     <label className="text-gray-700 text-sm">{capitalizeFirstLetter(stat)}</label>
                     <input
                         type="checkbox"
-                        checked={visibleStats.includes(stat)} // Controlled by Redux state
-                        onChange={() => dispatch(toggleVisibleStat(stat))} // Toggle visibility in Redux
+                        checked={visibleStats.includes(stat)}
+                        onChange={() => dispatch(toggleVisibleStat(stat))}
                     />
                 </div>
             ))}

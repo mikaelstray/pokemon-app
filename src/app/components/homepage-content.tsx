@@ -14,7 +14,7 @@ export function HomePageContent() {
 
     useEffect(() => {
         if (status === "idle") {
-            dispatch((fetchPokemonList));
+            dispatch(fetchPokemonList());
         }
     }, [dispatch, status]);
 

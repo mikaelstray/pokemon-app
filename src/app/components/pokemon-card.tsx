@@ -7,6 +7,7 @@ import { capitalizeFirstLetter } from "@/lib/utils";
 import { PokemonDetails, StatType } from "@/lib/definitions";
 import { ExternalLinkIcon } from "@/app/components/icons";
 import React from "react";
+import { StatDisplay } from "@/app/components/card/card-stat";
 
 interface PokemonCardProps {
     pokemon: PokemonDetails;
@@ -37,7 +38,7 @@ export function PokemonCard({
             )}
         >
             <div className="flex items-center justify-between w-full">
-                <div className="flex items-center space-x-8 w-full">
+                <div className="flex items-center space-x-4 w-full max-w-xs">
                     <div className="relative w-12 h-12">
                         <Image
                             src={sprites.other['official-artwork'].front_default}
@@ -47,49 +48,38 @@ export function PokemonCard({
                             className="rounded-full"
                         />
                     </div>
-                    <div className="w-1/3 text-lg font-semibold capitalize flex items-center space-x-2">
+                    <div className="text-lg font-semibold capitalize flex flex-col">
                         <span>{capitalizeFirstLetter(name)}</span>
                         <span className="text-sm text-gray-500">#{id}</span>
                     </div>
-                    <div className="flex w-3/5 gap-x-8">
-                        {/* Fixed-width container for each stat to ensure alignment */}
-                        <div
-                            className={clsx("flex flex-col items-center", {
-                                invisible: !visibleStats.includes(StatType.Weight),
-                            })}
-                            style={{ width: "80px" }}
-                        >
-                            <span className="text-xs font-medium text-gray-700">Weight</span>
-                            <span className="text-md font-semibold text-gray-900">{`${weight} kg`}</span>
-                        </div>
-                        <div
-                            className={clsx("flex flex-col items-center", {
-                                invisible: !visibleStats.includes(StatType.Height),
-                            })}
-                            style={{ width: "80px" }}
-                        >
-                            <span className="text-xs font-medium text-gray-700">Height</span>
-                            <span className="text-md font-semibold text-gray-900">{`${height} m`}</span>
-                        </div>
-                        <div
-                            className={clsx("flex flex-col items-center", {
-                                invisible: !visibleStats.includes(StatType.Types),
-                            })}
-                            style={{ width: "150px" }}
-                        >
-                            <span className="text-xs font-medium text-gray-700">Types</span>
-                            <span className="text-md font-semibold text-gray-900">
-                                {types.map((type) => capitalizeFirstLetter(type.type.name)).join(", ")}
-                            </span>
-                        </div>
-                    </div>
                 </div>
 
-                <div className="group" onClick={preventPropagation}>
-                    <Link href={`/${name}`} className="hover:scale-110 transition-transform">
-                        <ExternalLinkIcon />
-                    </Link>
+                <div className="flex flex-grow gap-x-8 items-center justify-between">
+                    <StatDisplay
+                        label="Weight"
+                        value={`${weight} kg`}
+                        isVisible={visibleStats.includes(StatType.Weight)}
+                    />
+                    <StatDisplay
+                        label="Height"
+                        value={`${height} m`}
+                        isVisible={visibleStats.includes(StatType.Height)}
+                    />
+                    <StatDisplay
+                        label="Types"
+                        value={types.map((type) => capitalizeFirstLetter(type.type.name)).join(", ")}
+                        isVisible={visibleStats.includes(StatType.Types)}
+                        width="150px"
+                    />
                 </div>
+
+                <Link
+                    href={`/${name}`}
+                    className="flex items-center justify-center p-2 hover:scale-110 transition-transform"
+                    onClick={preventPropagation}
+                >
+                    <ExternalLinkIcon />
+                </Link>
             </div>
 
             {isSelected && (

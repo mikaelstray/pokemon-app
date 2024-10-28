@@ -1,8 +1,6 @@
-// src/redux/slices/uiSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { StatType } from "@/lib/definitions";
 
-// Helper function to load initial state from localStorage
 const loadFromLocalStorage = () => {
     try {
         const savedState = localStorage.getItem("visibleStats");
@@ -38,7 +36,6 @@ const uiSlice = createSlice({
                 ? state.visibleStats.filter((s) => s !== stat)
                 : [...state.visibleStats, stat];
 
-            // Save updated visibleStats to localStorage
             localStorage.setItem("visibleStats", JSON.stringify(state.visibleStats));
         },
         setExpandedId(state, action: PayloadAction<number | null>) {

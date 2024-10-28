@@ -16,14 +16,10 @@ export default async function PokemonPage(props: { params: Promise<{ pokemonName
             </h1>
             <div className="flex justify-center m-6">
                 <div className="relative w-72 h-72">
-                    {pokemonObject.sprites?.other?.['official-artwork']?.front_default ? (
-                        <PokemonImage
-                            image={pokemonObject.sprites.other['official-artwork'].front_default}
-                            name={pokemonName}
-                        />
-                    ) : (
-                        <p>No image available</p>
-                    )}
+                    <PokemonImage
+                        image={pokemonObject.sprites.other['official-artwork'].front_default}
+                        name={pokemonName}
+                    />
                 </div>
             </div>
 

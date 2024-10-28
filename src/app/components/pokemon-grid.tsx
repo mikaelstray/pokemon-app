@@ -3,7 +3,7 @@
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { setSearchText, setExpandedId } from "@/redux/slices/ui-slice";
 import { PokemonCard } from "@/app/components/pokemon-card";
-import { searchFilter } from "@/lib/utils";
+import { searchFilter, handleNavigation } from "@/lib/utils";
 import { StatFilter } from "@/app/components/stat-filter";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,15 +18,8 @@ export function PokemonGrid() {
     const filteredList = searchFilter(pokemonList, searchText);
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
-        const currentIndex = filteredList.findIndex((pokemon) => pokemon.id === expandedId);
-
-        if (e.key === "ArrowDown") {
-            const nextIndex = (currentIndex + 1) % filteredList.length;
-            dispatch(setExpandedId(filteredList[nextIndex]?.id ?? null));
-        } else if (e.key === "ArrowUp") {
-            const prevIndex = (currentIndex - 1 + filteredList.length) % filteredList.length;
-            dispatch(setExpandedId(filteredList[prevIndex]?.id ?? null));
-        }
+        const newExpandedId = handleNavigation(e, filteredList, expandedId);
+        dispatch(setExpandedId(newExpandedId));
     };
 
     return (

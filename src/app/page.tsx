@@ -1,7 +1,7 @@
 "use client";
 
 import { Provider} from "react-redux";
-import { store } from "@/redux/store"; // Make sure RootState is imported for type safety
+import { store } from "@/redux/store";
 import {HomePageContent} from "@/app/components/homepage-content";
 
 export default function HomePage() {
