@@ -1,3 +1,5 @@
+// redux/slices/pokemon-slices.ts
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { PokemonDetails } from "@/lib/definitions";
 import { getPokemonList } from "@/lib/data";
