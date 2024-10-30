@@ -1,17 +1,16 @@
-import clsx from "clsx";
+import {cn} from "@/lib/utils";
 
 interface StatDisplayProps {
     label: string;
     value: string | number;
     isVisible: boolean;
-    width?: string;
+    className?: string;
 }
 
-export function StatDisplay({ label, value, isVisible, width = "80px" }: StatDisplayProps) {
+export function StatDisplay({ label, value, isVisible, className }: StatDisplayProps) {
     return (
         <div
-            className={clsx("flex flex-col items-center", { invisible: !isVisible })}
-            style={{ width }}
+            className={cn(["flex flex-col items-center w-[80px]", { invisible: !isVisible }, className])}
         >
             <span className="text-xs font-medium text-gray-700">{label}</span>
             <span className="text-md font-semibold text-gray-900">{value}</span>

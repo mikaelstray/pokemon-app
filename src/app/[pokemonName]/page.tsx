@@ -1,13 +1,12 @@
-import { getPokemon } from "@/lib/data";
-import { PokemonImage } from "@/app/components/pokemon-image";
-import { capitalizeFirstLetter } from "@/lib/utils";
-import { StatItem } from "@/app/components/stat/stat-item";
-import { Stat } from "@/lib/definitions";
+import {getPokemon} from "@/lib/data";
+import {PokemonImage} from "@/app/components/pokemon-image";
+import {capitalizeFirstLetter} from "@/lib/utils";
+import {PageStatItem} from "@/app/components/stat/page-stat-item";
+import {Stat} from "@/lib/definitions";
 
 export default async function PokemonPage(props: { params: Promise<{ pokemonName: string }> }) {
     // Await params and extract the Pokémon name
-    const params = await props.params;
-    const { pokemonName } = params;
+    const { pokemonName } = await props.params;
 
     // Fetch Pokémon data based on the name
     const pokemonObject = await getPokemon(pokemonName);
@@ -37,7 +36,7 @@ export default async function PokemonPage(props: { params: Promise<{ pokemonName
             {/* Pokémon Stats */}
             <div className="space-y-4">
                 {pokemonObject.stats.map((statObject: Stat) => (
-                    <StatItem key={statObject.stat.name} stat={statObject} />
+                    <PageStatItem key={statObject.stat.name} stat={statObject} />
                 ))}
             </div>
         </div>

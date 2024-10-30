@@ -1,12 +1,14 @@
-import { Progress } from "@/components/ui/progress";
+"use server";
+
 import { Stat } from "@/lib/definitions";
 import { capitalizeFirstLetter } from "@/lib/utils";
+import {Progress} from "@/components/ui/progress";
 
 interface StatItemProps {
     stat: Stat;
 }
 
-export function StatItem({ stat }: StatItemProps) {
+export async function PageStatItem({ stat }: StatItemProps) {
     const statName = capitalizeFirstLetter(stat.stat.name);
     const statValue = stat.base_stat;
 
